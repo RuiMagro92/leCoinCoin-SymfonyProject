@@ -1,0 +1,35 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+  View Advert - {{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+  {% if advert.image is not null %}
+    <img src="{{ '/uploads/' ~ advert.image }}">
+  {% endif %}
+
+  <h2>Name: {{ advert.name }}</h2>
+  <i>Date: {{ advert.creationDate|date('d/m/Y') }}</i>
+
+  <div class="well">
+    {{ advert.description }}
+  </div>
+
+  <p>
+    <a href="{{ path('home') }}" class="btn btn-primary">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Return to the list
+    </a>
+    <a href="{{ path('edit', {'id': advert.id}) }}" class="btn btn-secondary">
+      <i class="glyphicon glyphicon-edit"></i>
+      Modify the advert
+    </a>
+    <a href="{{ path('delete', {'id': advert.id}) }}" class="btn btn-danger">
+      <i class="glyphicon glyphicon-trash"></i>
+      Delete 
+    </a>
+  </p>
+
+{% endblock %}

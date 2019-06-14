@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Adverts: {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <h1>Adverts:</h1>
+
+    <div class="adverts">
+        {% for message in app.flashes('new') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('modify') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('deleted') %}
+            <div class="danger danger-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {% for advert in adverts %}
+
+            <div class="card">
+                <div class="card-img-top">
+                    <img src="{{ '/uploads/' ~ advert.image }}">
+                </div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ advert.name }}</h2>
+                    <h2 class="card-title">{{ advert.creationDate|date('d/m/Y') }}</h2>
+                    <div>{{ advert.price ? advert.price ~ '€' }}</div>
+                    <p class="card-text">{{ advert.description|slice(0, 100) }}...</p>
+                    <a href="{{ path( 'view', {"id": advert.id} ) }}" class="btn btn-primary">Details</a>
+                    <a href="{{ path( 'edit', {"id": advert.id} ) }}" class="btn btn-secondary">Modify</a>
+                    <a href="{{ path( 'delete', {"id": advert.id} ) }}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
